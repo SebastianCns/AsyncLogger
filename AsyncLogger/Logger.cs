@@ -20,9 +20,9 @@ namespace AsyncLogger
         public Logger(string applicationname, Targets target)
         {
             config = new ConfigObj();
-            if (ConfigReader.GetXmlConfig(config) == true)
+            if (ConfigReader.GetXmlConfig(config) == true)                      //Check if the loading of the configuration was succsessful 
             {
-                switch (target)
+                switch (target)                                                 //Create an object of the specified logger type
                 {
                     case Targets.file:
                         logger = new FileLog(config, applicationname);
@@ -46,12 +46,12 @@ namespace AsyncLogger
 
         }
 
-        public void Log(LogTypes type, string message)                          
+        public void Log(LogTypes type, string message)                          //Store the loginformation in the queue                     
         {
             logQueue.Enqueue(new LogObj(type, message));
         }
 
-        private void EnterLog()
+        private void EnterLog()                                                 //Enter the loginformation from the queue in the logtarget
         {
             while (true)
             {
